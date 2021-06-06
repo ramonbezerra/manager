@@ -17,12 +17,12 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 public class SwaggerConfig extends WebMvcConfigurationSupport {
     @Bean
     public Docket productApi() {
-        return new Docket(DocumentationType.SWAGGER_2).select().apis(RequestHandlerSelectors.basePackage("br.edu.uepb.coffee"))
+        return new Docket(DocumentationType.SWAGGER_2).select().apis(RequestHandlerSelectors.basePackage("br.edu.uepb.manager"))
                 .build().apiInfo(metaData());
     }
 
     private ApiInfo metaData() {
-        return new ApiInfoBuilder().title("Coffee Restful API").description("\"Supported by Spring Boot\"")
+        return new ApiInfoBuilder().title("Project Manager Example App Restful API").description("\"Supported by Spring Boot\"")
                 .version("1.0.0").license("Apache License Version 2.0")
                 .licenseUrl("https://www.apache.org/licenses/LICENSE-2.0\"").build();
     }
