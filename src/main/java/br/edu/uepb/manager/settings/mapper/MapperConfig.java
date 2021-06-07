@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import br.edu.uepb.manager.mapper.ProjectMapper;
 import br.edu.uepb.manager.mapper.UserMapper;
 
 @Configuration
@@ -17,5 +18,10 @@ public class MapperConfig {
     @Bean
     public UserMapper userMapper() {
         return new UserMapper();
+    }
+
+    @Bean
+    public ProjectMapper projectMapper() {
+        return new ProjectMapper();
     }
 }

@@ -1,9 +1,11 @@
 package br.edu.uepb.manager.dto;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import br.edu.uepb.manager.domain.Role;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,10 +14,16 @@ import lombok.NoArgsConstructor;
 public class UserDTO {
     
     @JsonProperty("username")
-    @NotBlank
+    @NotEmpty
     private String username;
     
     @JsonProperty("password")
-    @NotBlank
+    @NotEmpty
     private String password;
+    
+    @JsonProperty("role")
+    private Role role;
+
+    @JsonProperty("registration")
+    private Long registration;
 }

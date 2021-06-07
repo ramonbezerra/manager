@@ -13,7 +13,7 @@ import br.edu.uepb.manager.services.user.UserService;
 import io.swagger.annotations.Api;
 
 @RestController
-@RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE + "; charset=utf-8")
+@RequestMapping(value = "/api/v1/signup", produces = MediaType.APPLICATION_JSON_VALUE + "; charset=utf-8")
 @Api(value = "Sign Up")
 public class SignUpController {
     
@@ -23,7 +23,7 @@ public class SignUpController {
     @Autowired
     private UserMapper userMapper;
 
-    @PostMapping("/signup")
+    @PostMapping
     public void signUp(@RequestBody UserDTO userDTO){
         userService.signUpUser(userMapper.convertFromUserDTO(userDTO));
     }
