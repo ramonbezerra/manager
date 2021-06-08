@@ -14,7 +14,7 @@ import io.swagger.annotations.Api;
 
 @RestController
 @RequestMapping(value = "/api/v1/signup", produces = MediaType.APPLICATION_JSON_VALUE + "; charset=utf-8")
-@Api(value = "Sign Up")
+@Api(value = "Sign Up", tags = "Sign Up")
 public class SignUpController {
     
     @Autowired

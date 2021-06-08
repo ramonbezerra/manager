@@ -20,6 +20,7 @@ import br.edu.uepb.manager.domain.Project;
 import br.edu.uepb.manager.domain.User;
 import br.edu.uepb.manager.dto.GenericResponseErrorDTO;
 import br.edu.uepb.manager.dto.ProjectDTO;
+import br.edu.uepb.manager.dto.ProjectUserDTO;
 import br.edu.uepb.manager.exceptions.NotAccumulateProjectException;
 import br.edu.uepb.manager.exceptions.NotAuthorizedRoleException;
 import br.edu.uepb.manager.mapper.ProjectMapper;
@@ -29,7 +30,7 @@ import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping(value = "/api/v1/projects", produces = MediaType.APPLICATION_JSON_VALUE + "; charset=utf-8")
-@Api(value = "Project")
+@Api(value = "Project", tags = "Project")
 public class ProjectController {
     
     @Autowired
@@ -40,7 +41,7 @@ public class ProjectController {
 
     @GetMapping
     @ApiOperation(value = "Lista todos os projetos")
-    public List<ProjectDTO> getAllProjects() {
+    public List<ProjectDTO> getAll() {
         List<Project> projects = projectService.listAll();
         return projects.stream()
                         .map(projectMapper::convertToProjectDTO)
@@ -49,7 +50,7 @@ public class ProjectController {
 
     @GetMapping("/{id}")
     @ApiOperation(value = "Busca um projeto pelo seu identificador")
-    public ResponseEntity<?> getProjectById(@PathVariable Long id) {
+    public ResponseEntity<?> getById(@PathVariable Long id) {
         try {
             return new ResponseEntity<>(projectMapper.convertToProjectDTO(projectService.findById(id)), HttpStatus.OK);
         } catch (Exception e) {
@@ -68,8 +69,25 @@ public class ProjectController {
         }
     }
 
-    @PatchMapping("/{id}")
-    public void linkUser(){
-        projectService.linkUser();
+    @PostMapping("/link")
+    public ResponseEntity<?> linkUser(@RequestBody ProjectUserDTO userProjectDTO, Authentication auth){
+        try {
+            String usernameLogged = auth.getPrincipal().toString();
+            projectService.linkUser(userProjectDTO.getProjectId(), userProjectDTO.getUsername(), userProjectDTO.getFunction(), usernameLogged);
+            return ResponseEntity.noContent().build();
+        } catch (NotAuthorizedRoleException | NotAccumulateProjectException e) {
+            return ResponseEntity.badRequest().body(new GenericResponseErrorDTO(e.getMessage()));
+        }
+    }
+
+    @PostMapping("/unlink")
+    public ResponseEntity<?> unlinkUser(@RequestBody ProjectUserDTO userProjectDTO, Authentication auth){
+        try {
+            String usernameLogged = auth.getPrincipal().toString();
+            projectService.unlinkUser(userProjectDTO.getProjectId(), userProjectDTO.getUsername(), usernameLogged);
+            return ResponseEntity.noContent().build();
+        } catch (NotAuthorizedRoleException e) {
+            return ResponseEntity.badRequest().body(new GenericResponseErrorDTO(e.getMessage()));
+        }
     }
 }

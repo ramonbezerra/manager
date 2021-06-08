@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,7 +16,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Entity
+@Entity(name = "users")
 @Table(name = "users")
 @NoArgsConstructor
 public class User implements Serializable {
@@ -41,7 +42,6 @@ public class User implements Serializable {
     @Column(name = "function")
     private Function function;
 
-    @ManyToOne
-    @JoinColumn(name="project_id", nullable=true)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Project project;
 }

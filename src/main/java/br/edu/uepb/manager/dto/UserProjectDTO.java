@@ -11,19 +11,17 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Data
-public class UserDTO {
+public class UserProjectDTO {
+
+    private Long id;
     
     @JsonProperty("username")
     @NotEmpty
     private String username;
-
-    @JsonProperty("password")
-    @NotEmpty
-    private String password;
     
     @JsonProperty("role")
     private Role role;
-
+    
     @JsonProperty("function")
     private Function function;
 

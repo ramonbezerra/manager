@@ -1,16 +1,17 @@
 package br.edu.uepb.manager.settings.swagger;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.fasterxml.classmate.TypeResolver;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Import;
-import org.springframework.http.HttpHeaders;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 
+import br.edu.uepb.manager.dto.GenericResponseErrorDTO;
+import br.edu.uepb.manager.dto.UserLoginDTO;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -25,7 +26,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
 @EnableSwagger2
-@Import(springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration.class)
+// @Import(springfox.bean.validators.configuration.BeanValidatorPluginsConfiguration.class)
 public class SwaggerConfig extends WebMvcConfigurationSupport {
 
     public static final String AUTHORIZATION_HEADER = "Authorization";
@@ -33,8 +34,9 @@ public class SwaggerConfig extends WebMvcConfigurationSupport {
     public static final String BASE_PACKAGE = "br.edu.uepb.manager";
 
     @Bean
-    public Docket productApi() {
+    public Docket productApi(TypeResolver typeResolver) {
         return new Docket(DocumentationType.SWAGGER_2)
+                .additionalModels(typeResolver.resolve(UserLoginDTO.class), typeResolver.resolve(GenericResponseErrorDTO.class))
                 .securityContexts(Arrays.asList(securityContext()))
                 .securitySchemes(Arrays.asList(apiKey()))
                 .select()

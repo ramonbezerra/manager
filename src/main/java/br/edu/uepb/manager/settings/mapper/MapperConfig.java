@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 
 import br.edu.uepb.manager.mapper.ProjectMapper;
 import br.edu.uepb.manager.mapper.UserMapper;
+import br.edu.uepb.manager.mapper.UserProjectMapper;
 
 @Configuration
 public class MapperConfig {
@@ -18,6 +19,11 @@ public class MapperConfig {
     @Bean
     public UserMapper userMapper() {
         return new UserMapper();
+    }
+
+    @Bean
+    public UserProjectMapper userProjectMapper() {
+        return new UserProjectMapper();
     }
 
     @Bean
