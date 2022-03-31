@@ -66,26 +66,26 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         return source;
     }
 
-    @Bean
-	public FilterRegistrationBean<CorsFilter> corsFilterRegistrationBean() {
-		CorsConfiguration config = new CorsConfiguration();
-		config.setAllowedOrigins(Arrays.asList("*"));
-        config.setAllowCredentials(true);
-        config.addAllowedOrigin("*");
-        config.addAllowedHeader("*");
-        config.addAllowedMethod("OPTIONS");
-        config.addAllowedMethod("GET");
-        config.addAllowedMethod("POST");
-        config.addAllowedMethod("PUT");
-        config.addAllowedMethod("DELETE");
+    // @Bean
+	// public FilterRegistrationBean<CorsFilter> corsFilterRegistrationBean() {
+	// 	CorsConfiguration config = new CorsConfiguration();
+	// 	config.setAllowedOrigins(Arrays.asList("*"));
+    //     config.setAllowCredentials(true);
+    //     config.addAllowedOrigin("*");
+    //     config.addAllowedHeader("*");
+    //     config.addAllowedMethod("OPTIONS");
+    //     config.addAllowedMethod("GET");
+    //     config.addAllowedMethod("POST");
+    //     config.addAllowedMethod("PUT");
+    //     config.addAllowedMethod("DELETE");
 
-		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		source.registerCorsConfiguration("/**", config);
+	// 	UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+	// 	source.registerCorsConfiguration("/**", config);
 
-		FilterRegistrationBean<CorsFilter> bean = new FilterRegistrationBean<>();
-		bean.setFilter(new CorsFilter(source));
-		bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
+	// 	FilterRegistrationBean<CorsFilter> bean = new FilterRegistrationBean<>();
+	// 	bean.setFilter(new CorsFilter(source));
+	// 	bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
 
-		return bean;
-	}
+	// 	return bean;
+	// }
 }
