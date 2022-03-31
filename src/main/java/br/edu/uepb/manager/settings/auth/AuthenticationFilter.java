@@ -48,6 +48,8 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
                                 .setExpiration(new Date(System.currentTimeMillis() + 864_000_000))
                                 .signWith(SignatureAlgorithm.HS256, "UEPBProgWeb20202MySecretKeyToGenJWTsToken".getBytes())
                                 .compact();
-                response.addHeader("Authorization","Bearer " + token);
+                response.getWriter().write("{ \"token\": \"Bearer " + token + "\" }");
+                response.getWriter().flush();
+                // response.addHeader("Authorization","Bearer " + token);
     }
 }
